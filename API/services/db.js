@@ -18,6 +18,16 @@ const Campaign = sequelize.define('campaigns', {
     name: {
         type: Sequelize.STRING,
         field: 'name'
+    },
+    createdAt: {
+        type: Sequelize.DATE,
+        field: 'created_at',
+        defaultValue: sequelize.literal('NOW()')
+    },
+    updatedAt: {
+    type: Sequelize.DATE,
+    field: 'updated_at',
+    defaultValue: sequelize.literal('NOW()')
     }
 });
 

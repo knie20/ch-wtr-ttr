@@ -1,6 +1,9 @@
 const Models = require('./db');
 
-const getAllCampaigns = () => {
-    Models.Campaign
-
+module.exports = {
+    getAllCampaigns: () => {
+        return Models.Campaign.findAll().then(campaigns => {
+            return campaigns;
+        });
+    }
 }

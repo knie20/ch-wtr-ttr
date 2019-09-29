@@ -6,7 +6,7 @@ require('dotenv').config({path: __dirname + '/.env'});
 
 var indexRouter = require('./routes/index');
 var campaignRouter = require('./routes/campaign');
-var DB = require('./services/db');
+var DB = require('./services/db').default;
 
 var app = express();
 
@@ -18,5 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/campaign', campaignRouter);
+
+app.listen(3001);
 
 module.exports = app;

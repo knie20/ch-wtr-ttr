@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-const Campaign = require('../services/campaign-service');
+const CampaignService = require('../services/campaign-service');
 
 router.get('/all', async (req, res, next) => {
-  const allCampaigns = await Campaign.getAllCampaigns();
+  const allCampaigns = await CampaignService.getAllCampaigns();
 
-  return 
+  res.send(allCampaigns);
 });
 
 module.exports = router;
