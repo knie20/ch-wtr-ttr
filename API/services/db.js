@@ -1,10 +1,24 @@
 const Sequelize = require('sequelize');
 
-const DB = new Sequelize(process.env.DATABASE_URL);
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+    define: {
+        freezeTableName: true
+    },
+    dialect: 'postgres',
+    dialectOptions: {
+        ssl: true
+    }
+});
 
-var Campaign = DB.define('campaigns', {
+sequelize.authenticate().then(() => {
+    console.log('Connection to Database Success');
+});
+
+const Campaign = sequelize.define('campaigns', {
     name: {
         type: Sequelize.STRING,
         field: 'name'
     }
-})
+});
+
+module.exports = { Campaign };
