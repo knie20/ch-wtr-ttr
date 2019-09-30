@@ -23,7 +23,6 @@ class Index extends React.Component {
     }
 
     handleDelete(itemId) {
-        console.log(itemId);
         const self = this;
         fetch(API_URL + '/item/' + itemId,{
             method: 'delete',
@@ -36,10 +35,6 @@ class Index extends React.Component {
             self.getAllItems().then(_items => {
                 self.setState({items: _items});
             });
-
-            // const filteredItems = self.state.items.filter(i => i.id != itemId);
-            // self.setState({ items: filteredItems });
-            // self.forceUpdate();
         });
     }
 
@@ -55,11 +50,6 @@ class Index extends React.Component {
             self.getAllItems().then(_items => {
                 self.setState({items: _items});
             });
-        //     console.log(_item)
-        //     let appendedItems = self.state.items;
-        //     appendedItems.push(_item);
-        //     self.setState({ items: appendedItems });
-        //     self.forceUpdate();
         });
     };
 
@@ -76,15 +66,6 @@ class Index extends React.Component {
             self.getAllItems().then(_items => {
                 self.setState({items: _items});
             });
-            // let updatedItems = self.state.items.map(i => {
-            //     if(i.id == item.id) {
-            //         return item;
-            //     } else {
-            //         return i;
-            //     }
-            // });
-            // self.setState({ items: updatedItems });
-            // self.forceUpdate();
         });
     }
 
