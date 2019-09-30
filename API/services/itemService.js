@@ -16,6 +16,6 @@ module.exports = {
     },
 
     deleteItem: (id) => {
-        return Models.Item.delete({ where: id });
+        return Models.Item.destroy({ where: {id} });
     }
 }
