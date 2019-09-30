@@ -72,7 +72,6 @@ class ItemCard extends React.Component {
   }
 
   deleteItem(){
-    console.log(this.state.itemId)
     this.props.onDelete(this.state.itemId);
   }
 
@@ -83,7 +82,7 @@ class ItemCard extends React.Component {
           <Typography variant="h5" component="h2">
             <TextField
               id="standard-name"
-              value={this.state.item.name}
+              value={this.props.item.name}
               onChange={this.updateNameValue}
               onBlur={this.saveItem}
               margin="normal"
@@ -100,7 +99,7 @@ class ItemCard extends React.Component {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                value={this.state.item.quantity}
+                value={this.props.item.quantity}
                 onChange={this.updateQuantityValue}
                 onBlur={this.saveItem}
                 margin="normal"
@@ -113,7 +112,7 @@ class ItemCard extends React.Component {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                value={this.state.item.note}
+                value={this.props.item.note}
                 onChange={this.updateNoteValue}
                 onBlur={this.saveItem}
                 margin="normal"

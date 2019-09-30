@@ -12,7 +12,7 @@ class Index extends React.Component {
             items: []
         }
         
-        
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
@@ -23,6 +23,7 @@ class Index extends React.Component {
     }
 
     handleDelete(itemId) {
+        console.log(itemId);
         const self = this;
         fetch(API_URL + '/item/' + itemId,{
             method: 'delete',
@@ -31,10 +32,14 @@ class Index extends React.Component {
                 'Content-Type': 'application/json'
               }
         })
-        .then((id) => {
-            const filteredItems = self.state.items.filter(i => i.id != itemId);
-            self.setState({ items: filteredItems });
-            self.forceUpdate();
+        .then(() => {
+            self.getAllItems().then(_items => {
+                self.setState({items: _items});
+            });
+
+            // const filteredItems = self.state.items.filter(i => i.id != itemId);
+            // self.setState({ items: filteredItems });
+            // self.forceUpdate();
         });
     }
 
@@ -46,13 +51,17 @@ class Index extends React.Component {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
               }
-        }).then(item => {
-            let appendedItems = self.state.items;
-            appendedItems.push(item);
-            self.setState({ items: appendedItems });
-            self.forceUpdate();
+        }).then(() => {
+            self.getAllItems().then(_items => {
+                self.setState({items: _items});
+            });
+        //     console.log(_item)
+        //     let appendedItems = self.state.items;
+        //     appendedItems.push(_item);
+        //     self.setState({ items: appendedItems });
+        //     self.forceUpdate();
         });
-    }
+    };
 
     updateItem(item, itemId){
         const self = this;
@@ -64,15 +73,18 @@ class Index extends React.Component {
               },
             body: JSON.stringify({item})
         }).then(() => {
-            let updatedItems = self.state.items.map(i => {
-                if(i.id == itemId) {
-                    return item;
-                } else {
-                    return i;
-                }
+            self.getAllItems().then(_items => {
+                self.setState({items: _items});
             });
-            self.setState({ items: updatedItems });
-            self.forceUpdate();
+            // let updatedItems = self.state.items.map(i => {
+            //     if(i.id == item.id) {
+            //         return item;
+            //     } else {
+            //         return i;
+            //     }
+            // });
+            // self.setState({ items: updatedItems });
+            // self.forceUpdate();
         });
     }
 
@@ -82,7 +94,7 @@ class Index extends React.Component {
                 {this.state.items.map((item, i) => <ItemCard 
                                                         key={i} 
                                                         item={item} 
-                                                        onDelete={this.handleDelete.bind(this)}
+                                                        onDelete={this.handleDelete}
                                                         updateItem={this.updateItem.bind(this)}
                                                         />)}
                 <Button size="large" onClick={this.addItem.bind(this)}>Add Item...</Button>

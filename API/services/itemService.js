@@ -7,6 +7,10 @@ module.exports = {
         });
     },
 
+    findItem: (id) => {
+        return Models.Item.findOne({where: {id}}).then(data => data.toJSON());
+    },
+
     addItem: (item) => {
         return Models.Item.create(item);
     },
