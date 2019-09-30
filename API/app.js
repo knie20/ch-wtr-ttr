@@ -5,7 +5,7 @@ var logger = require('morgan');
 require('dotenv').config({path: __dirname + '/.env'});
 
 var indexRouter = require('./routes/index');
-var campaignRouter = require('./routes/campaign');
+var itemRouter = require('./routes/item');
 var DB = require('./services/db').default;
 
 var app = express();
@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/campaign', campaignRouter);
+app.use('/item', itemRouter);
 
 app.listen(3001);
 
