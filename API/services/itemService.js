@@ -12,7 +12,8 @@ module.exports = {
     },
 
     updateItem: (item, id) => {
-        return Models.Item.update(item, {where: id});
+        delete item.id;
+        return Models.Item.update(item, {where: {id}});
     },
 
     deleteItem: (id) => {

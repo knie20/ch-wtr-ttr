@@ -18,12 +18,12 @@ class Index extends React.Component {
     componentDidMount() {
         var self = this;
         self.getAllItems().then(items => {
-            console.log(items)
             self.setState({ items })
         });
     }
 
     handleDelete(itemId) {
+        const self = this;
         fetch(API_URL + '/item/' + itemId,{
             method: 'delete',
             headers: {
@@ -31,10 +31,10 @@ class Index extends React.Component {
                 'Content-Type': 'application/json'
               }
         })
-        .then(() => {
-            const filteredItems = this.state.items.filter(i => i.id != itemId);
-            this.setState({ items: filteredItems });
-            this.forceUpdate();
+        .then((id) => {
+            const filteredItems = self.state.items.filter(i => i.id != itemId);
+            self.setState({ items: filteredItems });
+            self.forceUpdate();
         });
     }
 
@@ -54,15 +54,37 @@ class Index extends React.Component {
         });
     }
 
-    updateItem(field, value){
-
+    updateItem(item, itemId){
+        const self = this;
+        fetch(API_URL + '/item/' + itemId, {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({item})
+        }).then(() => {
+            let updatedItems = self.state.items.map(i => {
+                if(i.id == itemId) {
+                    return item;
+                } else {
+                    return i;
+                }
+            });
+            self.setState({ items: updatedItems });
+            self.forceUpdate();
+        });
     }
 
     render(){
-        console.log(this.state);
         return(
             <div>
-                {this.state.items.map((item, i) => <ItemCard key={i} item={item} onDelete={() => this.handleDelete(item.id)}/>)}
+                {this.state.items.map((item, i) => <ItemCard 
+                                                        key={i} 
+                                                        item={item} 
+                                                        onDelete={this.handleDelete.bind(this)}
+                                                        updateItem={this.updateItem.bind(this)}
+                                                        />)}
                 <Button size="large" onClick={this.addItem.bind(this)}>Add Item...</Button>
             </div>
         );

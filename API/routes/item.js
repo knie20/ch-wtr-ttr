@@ -17,14 +17,13 @@ router.post('/', async (req, res, next) => {
 });
 
 router.put('/:id/', async (req, res, next) => {
-  const item = await ItemService.updateItem(req.body.item, req.params.item_id);
+  await ItemService.updateItem(req.body.item, req.params.id);
 
   res.status(200);
-  res.send(item);
 });
 
 router.delete('/:id', async (req, res, next) => {
-  const item = await ItemService.deleteItem(req.params.id);
+  await ItemService.deleteItem(req.params.id);
 
   res.status(200);
 });
