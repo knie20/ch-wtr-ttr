@@ -6,7 +6,6 @@ require('dotenv').config({path: __dirname + '/.env'});
 
 var indexRouter = require('./routes/index');
 var itemRouter = require('./routes/item');
-var DB = require('./services/db').default;
 
 var app = express();
 

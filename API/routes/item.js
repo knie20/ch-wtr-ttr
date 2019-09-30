@@ -4,27 +4,27 @@ var router = express.Router();
 const ItemService = require('../services/itemService');
 
 router.get('/', async (req, res, next) => {
-  const allCampaigns = await CampaignService.getAllCampaigns();
+  const allCampaigns = await ItemService.getAllItems();
 
   res.send(allCampaigns);
 });
 
 router.post('/', async (req, res, next) => {
-    const campaignId = await CampaignService.newCampaign();
+    const item = await ItemService.addItem(req.body.item);
 
     res.status(200);
-    res.send(campaignId);
+    res.send(item);
 });
 
-router.put('/:id/name', async (req, res, next) => {
-  const campaign = await CampaignService.setName(req.params.campaignId, req.body.name);
+router.put('/:id/', async (req, res, next) => {
+  const item = await ItemService.updateItem(req.body.item, req.params.item_id);
 
   res.status(200);
-  res.send(campaignId);
+  res.send(item);
 });
 
 router.delete('/:id', async (req, res, next) => {
-  const campaignId = await CampaignService.deleteCampaign(req.params.id);
+  const item = await ItemService.deleteItem(req.params.id);
 
   res.status(200);
 });

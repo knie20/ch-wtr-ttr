@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-unfetch';
 
-import CampaignCard from '../components/campaignCard';
+import CampaignCard from '../components/ItemCard';
 import { Button } from '@material-ui/core';
 
 const API_URL = 'http://localhost:3000';
