@@ -14,10 +14,18 @@ sequelize.authenticate().then(() => {
     console.log('Connection to Database Success');
 });
 
-const Campaign = sequelize.define('campaigns', {
+const Item = sequelize.define('items', {
     name: {
         type: Sequelize.STRING,
         field: 'name'
+    },
+    quantity: {
+        type: Sequelize.INTEGER,
+        field: 'quantity'
+    },
+    note: {
+        type: Sequelize.STRING,
+        field: 'note'
     },
     createdAt: {
         type: Sequelize.DATE,
@@ -31,4 +39,4 @@ const Campaign = sequelize.define('campaigns', {
     }
 });
 
-module.exports = { Campaign };
+module.exports = { Item };
